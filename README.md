@@ -1,10 +1,12 @@
 # BugGuardsV17
 
+## When F5 or CTRL + R (Or in reload page in route /home) navigate for authComponent
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
 
 ## CLI
 
-```bash
+```zsh
 Angular CLI: 17.2.0
 Node: 20.10.0
 Package Manager: pnpm 8.13.1
@@ -39,6 +41,8 @@ HomeComponent,
 NavbarComponent,
 AuthComponent. `
 
+if token is valid and Router.navigate(['/auth']) is present in guard, occurs navigation for auth until the observable is resolved. After new navigate to homeComponent.
+
 ### Objective
 
 ```mermaid
@@ -52,9 +56,9 @@ stateDiagram-v2
 
     exists --> yes
     exists --> no
-    yes --> home
-    no --> Guard
-    Guard --> Auth
+    yes --> Home
+    no --> Auth
+
 
     Guard --> Home
 
@@ -75,7 +79,7 @@ stateDiagram-v2
     Token --> no
 
 
-    yes --> Home: If token is valid,\n redirect a HomeComponent
+    yes --> Home: If token is valid,\n redirect a HomeComponent.\n\n Press F5 or CTRL + R for view bug
     no --> AuthComponent
 
     AuthComponent --> Guard
