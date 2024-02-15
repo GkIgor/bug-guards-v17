@@ -1,0 +1,50 @@
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+
+  "vcs": {
+    "defaultBranch": "main",
+    "enabled": true,
+    "root": "./src",
+    "clientKind": "git"
+  },
+  "organizeImports": {
+    "enabled": true
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  },
+
+  "javascript": {
+    "formatter": {
+      "quoteStyle": "single",
+      "enabled": true,
+      "indentWidth": 2,
+      "indentStyle": "space",
+      "bracketSpacing": true,
+      "quoteProperties": "preserve",
+      "bracketSameLine": true,
+      "arrowParentheses": "always",
+      "lineWidth": 90
+    },
+    "parser": {
+      "unsafeParameterDecoratorsEnabled": true
+    }
+  },
+  "json": {
+    "formatter": {
+      "enabled": true,
+      "indentStyle": "space",
+      "indentWidth": 2
+    }
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "formatWithErrors": true
+  },
+  "extends": ["biome.json"]
+}
