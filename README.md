@@ -2,26 +2,85 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.9.
 
-## Development server
+## CLI
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+```bash
+Angular CLI: 17.2.0
+Node: 20.10.0
+Package Manager: pnpm 8.13.1
+OS: linux x64
 
-## Code scaffolding
+Angular: 17.2.1
+... animations, common, compiler, compiler-cli, core, forms
+... platform-browser, platform-browser-dynamic, platform-server
+... router
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Package                         Version
+---------------------------------------------------------
+@angular-devkit/architect       0.1700.9
+@angular-devkit/build-angular   17.2.0
+@angular-devkit/core            17.0.9
+@angular-devkit/schematics      17.0.9
+@angular/cli                    17.2.0
+@angular/ssr                    17.2.0
+@schematics/angular             17.0.9
+rxjs                            7.8.1
+typescript                      5.2.2
+zone.js                         0.14.4
+```
 
-## Build
+## Bug Description
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Components
 
-## Running unit tests
+The components that make up the bug reproduction are similar to those in the development project. The minimalistic reproduction has the following components: `
+AppComponent,
+HomeComponent,
+NavbarComponent,
+AuthComponent. `
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Objective
 
-## Running end-to-end tests
+```mermaid
+---
+title: Auth Strategy
+---
+stateDiagram-v2
+    Home --> Guard
+    Guard --> Token
+    Token --> exists
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+    exists --> yes
+    exists --> no
+    yes --> home
+    no --> Guard
+    Guard --> Auth
 
-## Further help
+    Guard --> Home
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+```
+
+### Running
+
+```mermaid
+
+stateDiagram-v2
+    Home --> Guard
+    Guard --> AuthComponent: If Router.navigate includes in guard,\n redirect to AuthComponent
+
+
+    AuthComponent --> Token
+    Token --> yes
+    Token --> no
+
+
+    yes --> Home: If token is valid,\n redirect a HomeComponent
+    no --> AuthComponent
+
+    AuthComponent --> Guard
+
+    Home --> Bug: Render UI Broken
+
+
+```
