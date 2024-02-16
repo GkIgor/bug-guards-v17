@@ -29,7 +29,8 @@ export class AuthComponent {
     this.cookies.set('_AUTH_TOKEN', token, { expires: oneDay, secure: true });
   }
 
-  public submit(): void {
+  public submit(event: Event): void {
+    event.preventDefault();
     // this a http request to your server
     this.setToken('1234567890');
     new Promise(() => {
