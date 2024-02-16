@@ -31,6 +31,7 @@ export class AuthComponent {
 
   public submit(): void {
     // this a http request to your server
+    this.setToken('1234567890');
     new Promise(() => {
       setTimeout(() => {
         this.router.navigate(['/home']);
