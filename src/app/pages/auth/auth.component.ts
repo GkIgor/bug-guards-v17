@@ -1,16 +1,19 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { SsrCookieService } from 'ngx-cookie-service-ssr';
+
 
 @Component({
   selector: 'app-auth',
   standalone: true,
   imports: [],
+  providers: [CookieService, SsrCookieService],
   templateUrl: './auth.component.html',
 })
 export class AuthComponent {
   constructor(
-    private cookies: CookieService,
+    private cookies: SsrCookieService,
     private router: Router,
   ) {}
 
